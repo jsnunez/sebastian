@@ -6,7 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import domain.entity.Habilidad;
 import domain.entity.persons;
@@ -139,33 +140,36 @@ public class PersonaRepository implements PersonaService {
     e.printStackTrace();
     }  }
 
+
+
+    @Override
+    public List<persons> listarPersonas(int id) {
+       
+        List<persons> listaPersonas= new ArrayList<>();
+       String sql = "select p.name,p.lastname from persons p join persons_skill ps  on p.id=ps.iperson where ps.idskill =? ;";
+       persons persona = null;
+    try (Connection connection = DatabaseConfig.getConnection();
+    PreparedStatement statement = connection.prepareStatement(sql)) {
+
+    statement.setLong(1, id);
+    try (ResultSet resultSet = statement.executeQuery()) {
+    while (resultSet.next()) {
+    persona = new persons();
+    persona.setName(resultSet.getString("p.name"));
+    persona.setLastname(resultSet.getString("p.lastname"));
+    listaPersonas.add(persona);
+    }
+    }
+
+    } catch (SQLException e) {
+    e.printStackTrace();
+    }
+    return listaPersonas;
+  }
+
     
 
  
-
-    // @Override
-    // public User findUserById(int id) {
-    // String sql = "SELECT id, name, email FROM users WHERE id = ?";
-    // User user = null;
-    // try (Connection connection = DatabaseConfig.getConnection();
-    // PreparedStatement statement = connection.prepareStatement(sql)) {
-
-    // statement.setLong(1, id);
-    // try (ResultSet resultSet = statement.executeQuery()) {
-    // if (resultSet.next()) {
-    // user = new User();
-    // user.setId(resultSet.getInt("id"));
-    // user.setName(resultSet.getString("name"));
-    // user.setEmail(resultSet.getString("email"));
-    // }
-    // }
-
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-
-    // return user;
-    // }
 
  
 

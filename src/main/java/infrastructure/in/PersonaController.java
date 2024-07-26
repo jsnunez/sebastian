@@ -2,12 +2,13 @@ package infrastructure.in;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.util.List;
 import application.ActualizarPersona;
 import application.CrearPersonSkilsUSerCase;
 import application.CreateHabilidadUseCase;
 import application.CreatePersonUseCase;
 import application.DeletePersonUserCase;
+import application.ListarPersonasUseCase;
 import domain.entity.Habilidad;
 import domain.entity.persons;
 
@@ -17,16 +18,20 @@ public class PersonaController {
     private final CrearPersonSkilsUSerCase crearPersonSkilsUSerCase;
     private final DeletePersonUserCase deletePersonUserCase;
     private final ActualizarPersona actualizarPersona;
+    private final ListarPersonasUseCase listarPersonasUseCase;
 
+  
     public PersonaController(CreatePersonUseCase createUserUseCase, CreateHabilidadUseCase createHabilidadUseCase,
             CrearPersonSkilsUSerCase crearPersonSkilsUSerCase, DeletePersonUserCase deletePersonUserCase,
-            ActualizarPersona actualizarPersona) {
+            ActualizarPersona actualizarPersona, ListarPersonasUseCase listarPersonasUseCase) {
         this.createUserUseCase = createUserUseCase;
         this.createHabilidadUseCase = createHabilidadUseCase;
         this.crearPersonSkilsUSerCase = crearPersonSkilsUSerCase;
         this.deletePersonUserCase = deletePersonUserCase;
         this.actualizarPersona = actualizarPersona;
+        this.listarPersonasUseCase = listarPersonasUseCase;
     }
+
 
     public void start() {
 
@@ -141,6 +146,26 @@ public class PersonaController {
             }
             if (opcion.getText().equals("4")) {
 
+                JPanel panelbuscar = new JPanel(new GridLayout(0, 2));
+                panelbuscar.add(new JLabel("id a modificar:"));
+                JTextField id = new JTextField();
+                panelbuscar.add(id);
+                int buscar = JOptionPane.showConfirmDialog(null, panelbuscar, "id a modificar",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (buscar == JOptionPane.OK_OPTION) {
+                List<persons> listapersonas= listarPersonasUseCase.execute(Integer.parseInt(id.getText()));
+
+                JPanel penelListar = new JPanel(new GridLayout(0, 4));
+                for (persons persons : listapersonas) {
+
+                    penelListar.add(new JLabel("nombre :"));
+                    penelListar.add(new JLabel(persons.getName()));
+                    penelListar.add(new JLabel("apellido :"));
+                    penelListar.add(new JLabel(persons.getLastname()));                    
+                }
+                JOptionPane.showConfirmDialog(null, penelListar, "id a modificar",
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                }
             }
             if (opcion.getText().equals("5")) {
                 JPanel panelUsuario = new JPanel(new GridLayout(0, 2));
