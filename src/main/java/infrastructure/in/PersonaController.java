@@ -161,10 +161,10 @@ public class PersonaController {
             if (opcion.getText().equals("4")) {
 
                 JPanel panelbuscar = new JPanel(new GridLayout(0, 2));
-                panelbuscar.add(new JLabel("id a modificar:"));
+                panelbuscar.add(new JLabel("id habilidada a consultar:"));
                 JTextField id = new JTextField();
                 panelbuscar.add(id);
-                int buscar = JOptionPane.showConfirmDialog(null, panelbuscar, "id a modificar",
+                int buscar = JOptionPane.showConfirmDialog(null, panelbuscar, "busqueda por habilidad",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (buscar == JOptionPane.OK_OPTION) {
                 List<persons> listapersonas= listarPersonasUseCase.execute(Integer.parseInt(id.getText()));
@@ -242,7 +242,10 @@ public class PersonaController {
                 if (result == JOptionPane.OK_OPTION) {
                     int idUser = Integer.parseInt(idPersona.getText());
                     deletePersonUserCase.execute(idUser);
-                }
+                    JPanel otro = new JPanel(new GridLayout(0, 1));
+                    otro.add(new JLabel("usuario eliminado con exito:"));
+                    JOptionPane.showConfirmDialog(null, otro, "Tipo Usuario",
+                    JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE);                }
             }
 
         }

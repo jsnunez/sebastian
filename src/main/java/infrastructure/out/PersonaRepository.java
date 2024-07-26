@@ -2,12 +2,17 @@ package infrastructure.out;
 
 import infrastructure.config.DatabaseConfig;
 
+import java.awt.GridLayout;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import domain.entity.Habilidad;
 import domain.entity.persons;
@@ -49,6 +54,31 @@ public class PersonaRepository implements PersonaService {
 
     @Override
     public void createHabilidad(Habilidad habilidad) {
+
+
+
+        String sql1 = "select name from skill where name= ?;";
+        int validar=0;
+                try (Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql1)) {
+         
+             statement.setString(1,habilidad.getName());
+             try (ResultSet resultSet = statement.executeQuery()) {
+             if (resultSet.next()) {
+        validar=1;
+        JOptionPane.showMessageDialog(null, "skill ya existe  intente otra", "agregar usuario", 1);
+
+             }
+             else{
+        validar=0;
+             }
+             }
+         System.out.println(validar);
+             } catch (SQLException e) {
+             e.printStackTrace();
+             }
+if (validar==0) {
+
         String sql = "INSERT INTO skill (name) VALUES (?)";
         System.out.println(habilidad.getName());
         try (Connection connection = DatabaseConfig.getConnection();
@@ -67,11 +97,54 @@ public class PersonaRepository implements PersonaService {
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }    
+    }
     }
 
     @Override
     public void asignarHabilidad(persons persona, Habilidad habilidad,String fecha) {
+
+        String sql1 = "select name from skill where id= ?;";
+int validar=0;
+        try (Connection connection = DatabaseConfig.getConnection();
+     PreparedStatement statement = connection.prepareStatement(sql1)) {
+ 
+     statement.setLong(1, habilidad.getId());
+     try (ResultSet resultSet = statement.executeQuery()) {
+     if (resultSet.next()) {
+validar=1;
+     }
+     else{
+validar=0;
+JOptionPane.showMessageDialog(null, "no se encontro skill", "agregar usuario", 1);
+     }
+     }
+ System.out.println(validar);
+     } catch (SQLException e) {
+     e.printStackTrace();
+     }
+int validaduser=0;
+     String sql2 = "select name from persons where id= ?;";
+             try (Connection connection = DatabaseConfig.getConnection();
+          PreparedStatement statement = connection.prepareStatement(sql1)) {
+      
+          statement.setLong(1, persona.getId());
+          try (ResultSet resultSet = statement.executeQuery()) {
+          if (resultSet.next()) {
+            validaduser=1;
+          }
+          else{
+            validaduser=0;
+            JOptionPane.showMessageDialog(null, "no se encontro usuario", "agregar usuario", 1);
+
+          }
+          }
+      System.out.println(validar);
+          } catch (SQLException e) {
+          e.printStackTrace();
+          }
+if (validar==1 & validaduser==1) {
+    
 
         String sql = "INSERT INTO persons_skill (registration_date,iperson,idskill) VALUES (?,?,?)";
         System.out.println(habilidad.getName());
@@ -93,12 +166,42 @@ public class PersonaRepository implements PersonaService {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }}
+        else{
+            JOptionPane.showMessageDialog(null, "no se pudo asiganr el skill al usuario", "agregar usuario", 1);
+
         }
     }
 
     @Override
     public void deletePerson(int id) {
-    String sql = "DELETE FROM persons WHERE id = ?";
+
+
+        String sql1 = "select id from persons where id= ?;";
+        int validar=0;
+                try (Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql1)) {
+         
+             statement.setInt(1,id);
+             try (ResultSet resultSet = statement.executeQuery()) {
+             if (resultSet.next()) {
+        validar=1;
+
+             }
+             else{
+        validar=0;
+        JOptionPane.showMessageDialog(null, "usuario no existe", "agregar usuario", 1);
+
+             }
+             }
+         System.out.println(validar);
+             } catch (SQLException e) {
+             e.printStackTrace();
+             }
+if (validar==1) {
+    
+
+        String sql = "DELETE FROM persons_skill WHERE iperson = ?";
     int rowsUpdate = 0;
 
     try (Connection connection = DatabaseConfig.getConnection();
@@ -112,11 +215,50 @@ public class PersonaRepository implements PersonaService {
     } catch (SQLException e) {
     e.printStackTrace();
     }
+    String sql2 = "DELETE FROM persons WHERE id = ?";
+    int rowsUpdate2 = 0;
 
+    try (Connection connection = DatabaseConfig.getConnection();
+    PreparedStatement statement = connection.prepareStatement(sql2)) {
+
+    statement.setInt(1, id);
+    rowsUpdate2 = statement.executeUpdate();
+
+    System.out.println("Número de filas eliminadas: " + rowsUpdate);
+
+    } catch (SQLException e) {
+    e.printStackTrace();
+    }
+}
 }
 
     @Override
     public void actualizarPersona(persons persona) {
+
+        String sql1 = "select id from persons where id= ?;";
+        int validar=0;
+                try (Connection connection = DatabaseConfig.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql1)) {
+         
+             statement.setInt(1,persona.getId());
+             try (ResultSet resultSet = statement.executeQuery()) {
+             if (resultSet.next()) {
+        validar=1;
+
+             }
+             else{
+        validar=0;
+        JOptionPane.showMessageDialog(null, "usuario no existe", "agregar usuario", 1);
+
+             }
+             }
+         System.out.println(validar);
+             } catch (SQLException e) {
+             e.printStackTrace();
+             }
+if (validar==1) {
+    
+
         String sql = 
        " UPDATE persons SET name = ?,lastname=?,idcity=?,adddress=?,age=?,email=?,idgender=? WHERE id = ?;";
 
@@ -138,7 +280,7 @@ public class PersonaRepository implements PersonaService {
 
     } catch (SQLException e) {
     e.printStackTrace();
-    }  }
+    }  }}
 
 
 
