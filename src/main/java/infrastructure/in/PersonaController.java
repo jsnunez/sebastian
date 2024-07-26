@@ -2,12 +2,14 @@ package infrastructure.in;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import application.ActualizarPersona;
 import application.CrearPersonSkilsUSerCase;
 import application.CreateHabilidadUseCase;
 import application.CreatePersonUseCase;
 import application.DeletePersonUserCase;
+import application.ListarCiudades;
 import application.ListarPersonasUseCase;
 import domain.entity.Habilidad;
 import domain.entity.persons;
@@ -19,18 +21,27 @@ public class PersonaController {
     private final DeletePersonUserCase deletePersonUserCase;
     private final ActualizarPersona actualizarPersona;
     private final ListarPersonasUseCase listarPersonasUseCase;
+    private final ListarCiudades listarCiudades;
 
   
+ 
+
+
     public PersonaController(CreatePersonUseCase createUserUseCase, CreateHabilidadUseCase createHabilidadUseCase,
             CrearPersonSkilsUSerCase crearPersonSkilsUSerCase, DeletePersonUserCase deletePersonUserCase,
-            ActualizarPersona actualizarPersona, ListarPersonasUseCase listarPersonasUseCase) {
+            ActualizarPersona actualizarPersona, ListarPersonasUseCase listarPersonasUseCase,
+            ListarCiudades listarCiudades) {
         this.createUserUseCase = createUserUseCase;
         this.createHabilidadUseCase = createHabilidadUseCase;
         this.crearPersonSkilsUSerCase = crearPersonSkilsUSerCase;
         this.deletePersonUserCase = deletePersonUserCase;
         this.actualizarPersona = actualizarPersona;
         this.listarPersonasUseCase = listarPersonasUseCase;
+        this.listarCiudades = listarCiudades;
     }
+
+
+
 
 
     public void start() {
@@ -47,18 +58,22 @@ public class PersonaController {
 
         JTextField opcion = new JTextField();
         menu.add(opcion);
-
-        int seleccion = JOptionPane.showConfirmDialog(null, menu, "Tipo Usuario",
+        
+      int seleccion = JOptionPane.showConfirmDialog(null, menu, "Tipo Usuario",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
         if (seleccion == JOptionPane.OK_OPTION) {
             if (opcion.getText().equals("1")) {
+                List<String>listaciudades=  new ArrayList<>();
+              listaciudades= listarCiudades.execute();
+              for (String string : listaciudades) {
+                System.out.println(string);
+              }
                 JPanel panelUsuario = new JPanel(new GridLayout(0, 2));
 
                 panelUsuario.add(new JLabel("nombre:"));
                 JTextField nombre = new JTextField();
                 panelUsuario.add(nombre);
-
                 panelUsuario.add(new JLabel("apellido:"));
                 JTextField apellido = new JTextField();
                 panelUsuario.add(apellido);
@@ -66,7 +81,6 @@ public class PersonaController {
                 panelUsuario.add(new JLabel("idCiudad:"));
                 JTextField idciudad = new JTextField();
                 panelUsuario.add(idciudad);
-
                 panelUsuario.add(new JLabel("address:"));
                 JTextField address = new JTextField();
                 panelUsuario.add(address);

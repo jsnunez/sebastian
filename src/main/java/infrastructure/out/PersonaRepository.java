@@ -167,6 +167,26 @@ public class PersonaRepository implements PersonaService {
     return listaPersonas;
   }
 
+    @Override
+    public List<String> listarCiudades() {
+        List<String> listaCiudades= new ArrayList<>();
+        String sql = "select name from city c ;";
+     try (Connection connection = DatabaseConfig.getConnection();
+     PreparedStatement statement = connection.prepareStatement(sql)) {
+ 
+     try (ResultSet resultSet = statement.executeQuery()) {
+     while (resultSet.next()) {
+   String ciudad=(resultSet.getString("name"));
+   System.out.println(ciudad);
+     listaCiudades.add(ciudad);
+     }
+     }
+ 
+     } catch (SQLException e) {
+     e.printStackTrace();
+     }
+     return listaCiudades;   }
+
     
 
  

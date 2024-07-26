@@ -17,8 +17,9 @@ public class Main {
         DeletePersonUserCase deletePersonUserCase = new DeletePersonUserCase(userService);
         ActualizarPersona actualizarPersona = new ActualizarPersona(userService);
         ListarPersonasUseCase listarPersonasUseCase = new ListarPersonasUseCase(userService);
+        ListarCiudades listarCiudades = new ListarCiudades(userService);
        
-       PersonaController adaptador = new PersonaController(createUserUseCase, createHabilidadUseCase, crearPersonSkilsUSerCase, deletePersonUserCase, actualizarPersona, listarPersonasUseCase);
+       PersonaController adaptador = new PersonaController(createUserUseCase, createHabilidadUseCase, crearPersonSkilsUSerCase, deletePersonUserCase, actualizarPersona, listarPersonasUseCase, listarCiudades);
        
        
        

@@ -4,13 +4,13 @@ import domain.entity.Habilidad;
 import domain.service.PersonaService;
 
 public class CreateHabilidadUseCase {
-    private final PersonaService userService;
+    private final PersonaService userpersons;
 
-    public CreateHabilidadUseCase(PersonaService userService) {
-        this.userService = userService;
+    public CreateHabilidadUseCase(PersonaService userpersons) {
+        this.userpersons = userpersons;
     }
  public void execute(Habilidad habilidad) {
-        userService.createHabilidad(habilidad);
+        userpersons.createHabilidad(habilidad);
     }
 
 }

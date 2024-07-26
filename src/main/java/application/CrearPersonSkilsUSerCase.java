@@ -5,13 +5,13 @@ import domain.entity.persons;
 import domain.service.PersonaService;
 
 public class CrearPersonSkilsUSerCase {
-    private final PersonaService userService;
+    private final PersonaService userpersons;
 
-    public CrearPersonSkilsUSerCase(PersonaService userService) {
-        this.userService = userService;
+    public CrearPersonSkilsUSerCase(PersonaService userpersons) {
+        this.userpersons = userpersons;
     }
      public void execute(persons persona,Habilidad habilidad,String fecha) {
-        userService.asignarHabilidad(persona,habilidad,fecha);
+        userpersons.asignarHabilidad(persona,habilidad,fecha);
     }
 
 }

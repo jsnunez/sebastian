@@ -4,14 +4,14 @@ import domain.entity.persons;
 import domain.service.PersonaService;
 
 public class CreatePersonUseCase {
-    private final PersonaService userService;
+    private final PersonaService userpersons;
 
-    public CreatePersonUseCase(PersonaService userService) {
-        this.userService = userService;
+    public CreatePersonUseCase(PersonaService userpersons) {
+        this.userpersons = userpersons;
     }
 
     public void execute(persons user) {
-        userService.createUser(user);
+        userpersons.createUser(user);
     }
 
     

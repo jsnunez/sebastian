@@ -4,14 +4,14 @@ import domain.entity.persons;
 import domain.service.PersonaService;
 
 public class ActualizarPersona {
-    private final PersonaService userService;
+    private final PersonaService userpersons;
 
-    public ActualizarPersona(PersonaService userService) {
-        this.userService = userService;
+    public ActualizarPersona(PersonaService userpersons) {
+        this.userpersons = userpersons;
     }
 
     public void execute(persons persona) {
-userService.actualizarPersona(persona);
+userpersons.actualizarPersona(persona);
     }
 
 }

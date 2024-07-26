@@ -13,4 +13,5 @@ public interface PersonaService {
     void deletePerson(int id);
     void actualizarPersona(persons persona);
     List<persons> listarPersonas(int id);
+    List<String> listarCiudades();
 }
