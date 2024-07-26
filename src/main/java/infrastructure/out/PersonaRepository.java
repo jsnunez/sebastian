@@ -7,13 +7,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import javax.sound.midi.Soundbank;
 
 import domain.entity.Habilidad;
 import domain.entity.persons;
-import domain.service.UserService;
+import domain.service.PersonaService;
 
-public class UserRepository implements UserService {
+public class PersonaRepository implements PersonaService {
 
     @Override
     public void createUser(persons persona) {
@@ -96,28 +95,53 @@ public class UserRepository implements UserService {
         }
     }
 
-    // @Override
-    // public void createUser(persons user) {
-    // String sql = "INSERT INTO users (name, email) VALUES (?, ?)";
+    @Override
+    public void deletePerson(int id) {
+    String sql = "DELETE FROM persons WHERE id = ?";
+    int rowsUpdate = 0;
 
-    // try (Connection connection = DatabaseConfig.getConnection();
-    // PreparedStatement statement = connection.prepareStatement(sql,
-    // PreparedStatement.RETURN_GENERATED_KEYS)) {
+    try (Connection connection = DatabaseConfig.getConnection();
+    PreparedStatement statement = connection.prepareStatement(sql)) {
 
-    // statement.setString(1, user.getName());
-    // statement.setString(2, user.getEmail());
-    // statement.executeUpdate();
+    statement.setInt(1, id);
+    rowsUpdate = statement.executeUpdate();
 
-    // try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
-    // if (generatedKeys.next()) {
-    // user.setId(generatedKeys.getInt(1));
-    // }
-    // }
+    System.out.println("Número de filas eliminadas: " + rowsUpdate);
 
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-    // }
+    } catch (SQLException e) {
+    e.printStackTrace();
+    }
+
+}
+
+    @Override
+    public void actualizarPersona(persons persona) {
+        String sql = 
+       " UPDATE persons SET name = ?,lastname=?,idcity=?,adddress=?,age=?,email=?,idgender=? WHERE id = ?;";
+
+    try (Connection connection = DatabaseConfig.getConnection();
+    PreparedStatement statement = connection.prepareStatement(sql)) {
+
+    statement.setString(1, persona.getName());
+    statement.setString(2, persona.getLastname());
+    statement.setInt(3, persona.getIdcity());
+    statement.setString(4, persona.getAddress());
+    statement.setInt(5, persona.getAge());
+    statement.setString(6, persona.getEmail());
+    statement.setInt(7, persona.getIdgender());
+    statement.setInt(8, persona.getId());
+
+
+    int rowsUpdate = statement.executeUpdate();
+    System.out.println("Numero de filas actualizadas " + rowsUpdate);
+
+    } catch (SQLException e) {
+    e.printStackTrace();
+    }  }
+
+    
+
+ 
 
     // @Override
     // public User findUserById(int id) {
@@ -143,42 +167,6 @@ public class UserRepository implements UserService {
     // return user;
     // }
 
-    // @Override
-    // public int DeleteUserById(int id) {
-    // String sql = "DELETE FROM users WHERE id = ?";
-    // int rowsUpdate = 0;
-
-    // try (Connection connection = DatabaseConfig.getConnection();
-    // PreparedStatement statement = connection.prepareStatement(sql)) {
-
-    // statement.setInt(1, id);
-    // rowsUpdate = statement.executeUpdate();
-
-    // System.out.println("Número de filas eliminadas: " + rowsUpdate);
-
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
-
-    // return rowsUpdate;
-    // }
-
-    // @Override
-    // public void updatUserById(User user) {
-    // String sql = "UPDATE users SET name = ?,email=? WHERE id = ?";
-
-    // try (Connection connection = DatabaseConfig.getConnection();
-    // PreparedStatement statement = connection.prepareStatement(sql)) {
-
-    // statement.setString(1, user.getName());
-    // statement.setString(2, user.getEmail());
-    // statement.setInt(3, user.getId());
-
-    // int rowsUpdate = statement.executeUpdate();
-    // System.out.println("Numero de filas actualizadas " + rowsUpdate);
-
-    // } catch (SQLException e) {
-    // e.printStackTrace();
-    // }
+ 
 
 }

@@ -1,21 +1,23 @@
 package com.jsnunez;
 
 import application.*;
-import domain.service.UserService;
-import infrastructure.in.UserController;
-import infrastructure.out.UserRepository;
+import domain.service.PersonaService;
+import infrastructure.in.PersonaController;
+import infrastructure.out.PersonaRepository;
 
 public class Main {
     public static void main(String[] args) {
 
 
-        UserService userService = new UserRepository();
+        PersonaService userService = new PersonaRepository();
 
         CreatePersonUseCase createUserUseCase = new CreatePersonUseCase(userService);
         CreateHabilidadUseCase createHabilidadUseCase = new CreateHabilidadUseCase(userService);
         CrearPersonSkilsUSerCase crearPersonSkilsUSerCase = new CrearPersonSkilsUSerCase(userService);
+        DeletePersonUserCase deletePersonUserCase = new DeletePersonUserCase(userService);
+        ActualizarPersona actualizarPersona = new ActualizarPersona(userService);
        
-       UserController adaptador = new UserController(createUserUseCase, createHabilidadUseCase, crearPersonSkilsUSerCase);
+       PersonaController adaptador = new PersonaController(createUserUseCase, createHabilidadUseCase, crearPersonSkilsUSerCase, deletePersonUserCase, actualizarPersona);
        
        
        

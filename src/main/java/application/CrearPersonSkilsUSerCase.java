@@ -2,12 +2,12 @@ package application;
 
 import domain.entity.Habilidad;
 import domain.entity.persons;
-import domain.service.UserService;
+import domain.service.PersonaService;
 
 public class CrearPersonSkilsUSerCase {
-    private final UserService userService;
+    private final PersonaService userService;
 
-    public CrearPersonSkilsUSerCase(UserService userService) {
+    public CrearPersonSkilsUSerCase(PersonaService userService) {
         this.userService = userService;
     }
      public void execute(persons persona,Habilidad habilidad,String fecha) {

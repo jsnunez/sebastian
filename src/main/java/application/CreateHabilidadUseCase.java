@@ -1,12 +1,12 @@
 package application;
 
 import domain.entity.Habilidad;
-import domain.service.UserService;
+import domain.service.PersonaService;
 
 public class CreateHabilidadUseCase {
-    private final UserService userService;
+    private final PersonaService userService;
 
-    public CreateHabilidadUseCase(UserService userService) {
+    public CreateHabilidadUseCase(PersonaService userService) {
         this.userService = userService;
     }
  public void execute(Habilidad habilidad) {
