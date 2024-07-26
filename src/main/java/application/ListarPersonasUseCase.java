@@ -1,8 +1,6 @@
 package application;
 
 import java.util.List;
-import java.util.ArrayList;
-
 import domain.entity.persons;
 import domain.service.PersonaService;
 
