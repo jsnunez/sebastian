@@ -7,4 +7,5 @@ import domain.entity.persons;
 public interface UserService {
     void createUser(persons user);
     void createHabilidad(Habilidad habilidad);
+    void asignarHabilidad(persons persona, Habilidad habilidad, String fecha);
 }

@@ -13,8 +13,9 @@ public class Main {
 
         CreatePersonUseCase createUserUseCase = new CreatePersonUseCase(userService);
         CreateHabilidadUseCase createHabilidadUseCase = new CreateHabilidadUseCase(userService);
+        CrearPersonSkilsUSerCase crearPersonSkilsUSerCase = new CrearPersonSkilsUSerCase(userService);
        
-       UserController adaptador = new UserController(createUserUseCase, createHabilidadUseCase);
+       UserController adaptador = new UserController(createUserUseCase, createHabilidadUseCase, crearPersonSkilsUSerCase);
        
        
        

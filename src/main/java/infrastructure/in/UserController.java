@@ -3,6 +3,7 @@ package infrastructure.in;
 import javax.swing.*;
 import java.awt.*;
 
+import application.CrearPersonSkilsUSerCase;
 import application.CreateHabilidadUseCase;
 import application.CreatePersonUseCase;
 import domain.entity.Habilidad;
@@ -11,12 +12,19 @@ import domain.entity.persons;
 public class UserController {
     private final CreatePersonUseCase createUserUseCase;
     private final CreateHabilidadUseCase createHabilidadUseCase;
+    private final CrearPersonSkilsUSerCase crearPersonSkilsUSerCase;
 
 
-    public UserController(CreatePersonUseCase createUserUseCase, CreateHabilidadUseCase createHabilidadUseCase) {
+
+
+    public UserController(CreatePersonUseCase createUserUseCase, CreateHabilidadUseCase createHabilidadUseCase,
+            CrearPersonSkilsUSerCase crearPersonSkilsUSerCase) {
         this.createUserUseCase = createUserUseCase;
         this.createHabilidadUseCase = createHabilidadUseCase;
+        this.crearPersonSkilsUSerCase = crearPersonSkilsUSerCase;
     }
+
+
 
 
     public void start() {
@@ -91,7 +99,29 @@ createUserUseCase.execute(persona);
     }
     
 if(opcion.getText().equals("2")){
+    JPanel habilidades = new JPanel(new GridLayout(0, 2));
 
+    habilidades.add(new JLabel("ingrese id persona:"));
+    JTextField idpersona = new JTextField();
+    habilidades.add(idpersona);
+    habilidades.add(new JLabel("ingrese id habilidad:"));
+    JTextField idhabilidad = new JTextField();
+    habilidades.add(idhabilidad);
+    habilidades.add(new JLabel("ingrese fecha aaaa-mm-dd:"));
+    JTextField fecha = new JTextField();
+    habilidades.add(fecha);
+
+    int result = JOptionPane.showConfirmDialog(null, habilidades, "Tipo Usuario",
+    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    Habilidad habilidad = new Habilidad();
+    habilidad.setId(Integer.parseInt(idhabilidad.getText()));
+    persons persona = new persons();
+    persona.setId(Integer.parseInt(idpersona.getText()));
+
+    if (result  == JOptionPane.OK_OPTION) {
+
+        crearPersonSkilsUSerCase.execute(persona,habilidad,fecha.getText());
+    }
 
 }
 if(opcion.getText().equals("3")){
