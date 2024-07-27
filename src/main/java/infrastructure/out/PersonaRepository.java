@@ -22,7 +22,7 @@ public class PersonaRepository implements PersonaService {
 
     @Override
     public void createUser(persons persona) {
-        String sql = "INSERT INTO persons (name, lastname,idcity,adddress,age,email,idgender) VALUES (?, ?,?,?,?,?,?)";
+        String sql = "INSERT INTO persons (name, lastname,idcity,address,age,email,idgender) VALUES (?, ?,?,?,?,?,?)";
 
         try (Connection connection = DatabaseConfig.getConnection();
                 PreparedStatement statement = connection.prepareStatement(sql,
@@ -260,7 +260,7 @@ if (validar==1) {
     
 
         String sql = 
-       " UPDATE persons SET name = ?,lastname=?,idcity=?,adddress=?,age=?,email=?,idgender=? WHERE id = ?;";
+       " UPDATE persons SET name = ?,lastname=?,idcity=?,address=?,age=?,email=?,idgender=? WHERE id = ?;";
 
     try (Connection connection = DatabaseConfig.getConnection();
     PreparedStatement statement = connection.prepareStatement(sql)) {
