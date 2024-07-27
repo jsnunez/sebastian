@@ -46,7 +46,7 @@ CREATE TABLE sgpzf.persons(
     name VARCHAR(50),
     lastname VARCHAR(5),
     idcity int,
-    adddress varchar(50),
+    address varchar(50),
     age int,
     email varchar(100),
     idgender int,
@@ -274,15 +274,15 @@ INSERT INTO sgpzf.city (id, name, idregion) VALUES (83, 'El Banco', 39);
 INSERT INTO sgpzf.city (id, name, idregion) VALUES (84, 'Plato', 39);
 
 
-INSERT INTO sgpzf.persons(name, lastname,idcity,adddress,age,email,idgender) 
+INSERT INTO sgpzf.persons(name, lastname,idcity,address,age,email,idgender) 
 VALUES
 ("joan","nunez",2,"calle 30",29,"jsnunez94@gmail.com",1);
 
-INSERT INTO sgpzf.persons(name, lastname,idcity,adddress,age,email,idgender) 
+INSERT INTO sgpzf.persons(name, lastname,idcity,address,age,email,idgender) 
 VALUES
 ("camilo","mora",1,"calle 58",19,"camilomora@gmail.com",1);
 
-INSERT INTO sgpzf.persons(name, lastname,idcity,adddress,age,email,idgender) 
+INSERT INTO sgpzf.persons(name, lastname,idcity,address,age,email,idgender) 
 VALUES
 ("maria","lopez",5,"calle 18",23,"marialopez@gmail.com",2);
 
